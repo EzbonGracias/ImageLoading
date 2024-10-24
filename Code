@@ -1,0 +1,68 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DinoGameSussy
+{
+    public partial class Form1 : Form
+    {
+        private List<Image> images;
+        private int currentIndex;
+        private Timer timer;
+
+        public Form1()
+        {
+            InitializeComponent();
+            LoadImages();
+            InitializeTimer();
+        }
+
+        private void LoadImages()
+        {
+            images = new List<Image>
+            {
+                Image.FromFile("C:\\Users\\40265524\\Downloads\\alden.jpg"),
+                Image.FromFile("C:\\Users\\40265524\\Downloads\\shayaan.jpg"),
+                Image.FromFile("C:\\Users\\40265524\\Downloads\\rayaan.jpg")
+            };
+
+            if (images.Count > 0)
+            {
+                currentIndex = 0;
+                PictureBox.Image = images[currentIndex];
+            }
+            else
+            {
+                MessageBox.Show("No images found.");
+            }
+        }
+
+        private void InitializeTimer()
+        {
+            timer = new Timer();
+            timer.Interval = 300;
+            timer.Tick += timer1_Tick;
+            timer.Start();
+        }
+
+        private void PictureBox_Click(object sender, EventArgs e)
+        {
+        
+        }
+
+        private void timer1_Tick(object sender, EventArgs e)
+        {
+            if (images.Count > 0)
+            {
+                currentIndex = (currentIndex + 1) % images.Count;
+                PictureBox.Image = images[currentIndex];
+            }
+        }
+    }
+}
